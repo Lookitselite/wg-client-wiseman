@@ -5,6 +5,11 @@ const game = "auto-" + name + "-" + randomInt(1000);
 
 const alphabet = new Set("abcdefghijklmnopqrstuvwxyz".split(''));
 
+const conTest = Array.from("tnshrdlcwmfygpbvkxjqz");
+console.log(conTest);
+//const fConsenents = new Set("tnshrdlcwmfygpbvkxjqz".split(''));
+//const fVowels = new Set("eaoiu".split(''));
+
 require('core-js/actual');
 let { Socket } = require('phoenix-channels');
 
@@ -65,12 +70,13 @@ function onView(view) {
       }
     }
   }
-
+ 
+ 
   let ch = randomPick(moves);
   console.log("guess:", ch);
 
   if (moves.length > 0 && puzzle.includes('-')) {
-    channel.push("guess", {ch: ch});
+    channel.push("guess", {ch, ch});
   }
   else {
     console.log("done", view);
