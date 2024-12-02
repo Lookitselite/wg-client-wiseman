@@ -1,6 +1,6 @@
 
 
-const name = "student";
+const name = "Aidan";
 const game = "auto-" + name + "-" + randomInt(1000);
 
 const alphabet = new Set("abcdefghijklmnopqrstuvwxyz".split(''));
