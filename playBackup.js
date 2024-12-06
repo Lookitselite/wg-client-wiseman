@@ -1,17 +1,15 @@
 
 
-const name = "Aidan";
+const name = "aidanBackup";
 const game = "auto-" + name + "-" + randomInt(1000);
 
 const alphabet = new Set("abcdefghijklmnopqrstuvwxyz".split(''));
-
 
 require('core-js/actual');
 let { Socket } = require('phoenix-channels');
 
 let socket = new Socket("wss://words.homework.quest/socket", {debug: true});
 socket.connect();
-
 
 let channel = socket.channel("game:" + game, {name});
 
@@ -67,31 +65,12 @@ function onView(view) {
       }
     }
   }
-const conTest = Array.from("tnshrdlcwmfygpbvkxjqz");
-const vowels = ["a", "e", "i", "o", "u"];
-let removed = [];
-function freqGuess (conTest, vowels, guesses){
- for (let xx of conTest) {
-   if (guesses.has(xx)) {
-        removed += conTest.splice(0,1);
-	continue;
-   } else if (guesses.length == conTest.length) {
-      for (let xxx of vowels){
-       guesses += xxx;
-       return xxx;
-      }
-   } else {
-       guesses += xx;
-       return xx;
-    }
- }
-}
-  let freqGuessChoice = freqGuess(conTest, vowels, guesses);
+
   let ch = randomPick(moves);
-  console.log("guess:", freqGuessChoice);
+  console.log("guess:", ch);
 
   if (moves.length > 0 && puzzle.includes('-')) {
-    channel.push("guess", {freqGuessChoice, freqGuessChoice});
+    channel.push("guess", {ch: ch});
   }
   else {
     console.log("done", view);
