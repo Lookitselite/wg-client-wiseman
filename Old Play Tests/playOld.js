@@ -1,7 +1,10 @@
-//setup
-const name = "Aidans Final";
+
+
+const name = "aidansFreqTest";
 const game = "auto-" + name + "-" + randomInt(1000);
-const consins = new Set("tnshrdlcwmfygpbvkxjqzaeiou".split(''));
+
+const consins = new Set("tnshrdlcwmfygpbvkxjqz".split(''));
+const vowels = new Set("aeiou".split(''));
 
 require('core-js/actual');
 let { Socket } = require('phoenix-channels');
@@ -19,7 +22,18 @@ function randomInt(xx) {
   return Math.floor(xx * Math.random());
 }
 
-//pattern matcher
+function randomPick(xs) {
+  return xs[randomInt(xs.length)];
+}
+
+//let iterator = 0;
+//function iteratorPick(xs) {
+//  return iterator
+//  iterator += 1;
+//  console.log(iterator):
+//}
+
+
 function patMatch(pat, word, guesses) {
   let pchs = pat.split('');
   let wchs = word.split('');
@@ -42,15 +56,16 @@ function patMatch(pat, word, guesses) {
   return true;
 }
 
-//game player, my bot always grabs the first possible guess from a list of letters in probibility order, with vowels last, cause their not worth anything 
 function onView(view) {
   const puzzle = view.puzzle;
   const guesses = new Set(view.guesses);
   const moves = Array.from(consins.difference(guesses));
+  const vowMoves = Array.from(vowels.difference(guesses));
 
   console.log("puzzle:", puzzle);
   console.log("guesses:", Array.from(guesses));
   console.log("consin moves:", moves);
+  console.log("vowel moves:", vowMoves);
 
   let pats = puzzle.split(" ");
   for (let pat of pats) {
@@ -62,18 +77,44 @@ function onView(view) {
     }
   }
 
-  let ch = moves[0];
+  let ch = randomPick(moves);
   console.log("guess:", ch);
+  
+  if (moves.length == 0) {
+    let vch = randomPick(vowMoves);
+    console.log("guess:", vch);
+  }
+  
+  //Debugger
+  if (moves.length == 0){
+  console.log("consinMoves is empty");
+  } else {
+  console.log("consinMoves isnt empty");
+  }
+  
+  if (vowMoves.length == 0){
+  console.log("vowMoves is empty");
+  } else {
+  console.log("vowMoves isnt empty");
+  }
+
+  if (puzzle.includes('-')){
+  console.log("puzle isnt done");
+  } else {
+  console.log("puzzle is done");
+  }
+ //Debugger end
 
   if (moves.length > 0 && puzzle.includes('-')) {
     channel.push("guess", {ch: ch});
+  } else if (moves.length == 0 && vowMoves.length > 0 && puzzle.includes('-')){
+  channel.push("guess", {vch: vch})
   } else {
     console.log("done", view);
     process.exit();
   }
 }
 
-//game connecter
 channel.join()
   .receive("ok", (msg) => console.log("Connected to game:", msg.game))
   .receive("error", (msg) => console.log("Error:", msg));
