@@ -5,6 +5,8 @@ Aidans Final
 
 **2. How many average points did you have on the leaderboard when you submitted your work?**
 
+EDIT: checked the scoreboard back in my dorm on my computer, everything is there now, i dunno what happened with it back at the lab. my mean is 13.375.
+
 i have no idea, it looks like you dissabled points, mean, and games on the leaderboard. it's 15th on the leaderboard as of 5pm, on saturday dec 7th. 
 
 sidenote: i wonder what you did to the leaderboard, cause there were tons of people beating eggman the other day, now there's only 4.
